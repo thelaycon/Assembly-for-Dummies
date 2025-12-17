@@ -21,7 +21,11 @@ sudo pacman -S nasm base-devel
 
 ## 🗺️ The Curriculum (Folder Structure)
 
-This would be updated.
+- **[Chapter 1: Understanding Registers](./chapter_1/README.md)**
+  Learn about the CPU registers, basic movement of data, and your first Hello World.
+
+- **[Chapter 2: Basic Arithmetic](./chapter_2/README.md)**
+  Dive into addition, subtraction, and the tricky business of division (signed vs. unsigned).
 
 ## 🤝 Contributing
 Did you find a bug? Did I explain something so poorly that you got a headache?
