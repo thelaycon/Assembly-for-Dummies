@@ -5,6 +5,8 @@ In this chapter, we explore basic arithmetic operations in x86-64 assembly. Just
 We will cover the following instructions:
 - `add`: Addition
 - `sub`: Subtraction
+- `mul`: Unsigned Multiplication
+- `imul`: Signed Multiplication
 - `div`: Unsigned Division
 - `idiv`: Signed Division
 
@@ -37,6 +39,37 @@ sub rax, rbx  ; Subtract rbx from rax (rax = 5 - 6 = -1)
 ```
 
 **Note on Negative Numbers:** In the example (`sub.asm`), the result is -1. When used as an exit code in Linux, this value is treated as an unsigned 8-bit integer. Therefore, `echo $?` will display `255` (which is the unsigned byte representation of -1) rather than `-1`.
+
+## Multiplication
+
+Multiplication behaves similarly to division in that it uses a combined register pair for results.
+
+### Unsigned Multiplication (`mul`)
+
+**Syntax:** `mul source`
+
+This instruction multiplies the value in `rax` (implicit operand) by the `source` operand. The result is a 128-bit value stored across `rdx` (high 64 bits) and `rax` (low 64 bits).
+
+Example from `mul_unsigned.asm`:
+```asm
+mov rax, 5   ; Put 5 in rax
+mov rbx, 4   ; Put 4 in rbx
+mul rbx      ; Multiply rax by rbx (5 * 4 = 20)
+             ; Result: rax = 20, rdx = 0
+```
+
+### Signed Multiplication (`imul`)
+
+**Syntax:** `imul source` (One-operand form)
+
+This performs signed multiplication of `rax` by the `source` operand. The result is stored in `rdx:rax`.
+
+Example from `mul_signed.asm`:
+```asm
+mov rax, -5  ; Put -5 in rax
+mov rbx, 4   ; Put 4 in rbx
+imul rbx     ; Multiply rax by rbx (-5 * 4 = -20)
+```
 
 ## Division
 
@@ -120,4 +153,18 @@ echo $?
 nasm -f elf64 div_unsigned.asm -o div_unsigned.o && ld div_unsigned.o -o div_unsigned && ./div_unsigned
 echo $?
 # Output should be 3 (10 / 3 = 3)
+```
+
+**For `mul_unsigned.asm`:**
+```bash
+nasm -f elf64 mul_unsigned.asm -o mul_unsigned.o && ld mul_unsigned.o -o mul_unsigned && ./mul_unsigned
+echo $?
+# Output should be 20
+```
+
+**For `mul_signed.asm`:**
+```bash
+nasm -f elf64 mul_signed.asm -o mul_signed.o && ld mul_signed.o -o mul_signed && ./mul_signed
+echo $?
+# Output should be 236 (representing -20)
 ```

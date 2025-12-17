@@ -25,7 +25,7 @@ sudo pacman -S nasm base-devel
   Learn about the CPU registers, basic movement of data, and your first Hello World.
 
 - **[Chapter 2: Basic Arithmetic](./chapter_2/README.md)**
-  Dive into addition, subtraction, and the tricky business of division (signed vs. unsigned).
+  Dive into addition, subtraction, multiplication, and the tricky business of division (signed vs. unsigned).
 
 ## 🤝 Contributing
 Did you find a bug? Did I explain something so poorly that you got a headache?
